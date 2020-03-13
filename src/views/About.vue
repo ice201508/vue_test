@@ -34,17 +34,7 @@ export default {
         showClose: true,
         message: '这是一条消息提示',
         type: 'success',
-      });
-      // this.$message({
-      //   showClose: true,
-      //   message: '这是一条消息提示',
-      //   type: 'warning',
-      // });
-      // this.$message({
-      //   showClose: true,
-      //   message: '这是一条消息提示',
-      //   type: 'error',
-      // });
+      })
     },
   },
 };
