@@ -54,3 +54,32 @@
 6. `mockjs.com`
 7. template 的作用是模板占位符，可帮助我们包裹元素，但在循环过程当中，template 不会被渲染到页面上
 8. vue递归树形组件
+
+```
+基于Gradle来编译、打包android
+
+cordova build android
+
+cordova serve android
+		http://localhost:8000/android/www/index.html
+      
+1. 环境安装：
+npm install -g cordova
+cordova platform add android/ios/browser
+
+cordova build android --release
+2. 生成签名文件  
+keytool -genkey -v -keystore my.keystore -alias demo -keyalg RSA -keysize 2048 -validity 10000
+
+keytool -genkey -alias "ljl" -keyalg "RSA" -keystore "C:\Users\ljl\ljl.keystore" -dname "CN=localhost,OU=localhost,O=localhost,L=HB,ST=HB,C=CN" -keypass "123456" -storepass "123456" -validity "36500"
+keyalg  秘钥的算法
+keystore  生成的证书存放位置
+keypass  私钥的密码
+validity  有效期,单位是天数
+
+2.2 证书信息查看
+keytool -list  -v -keystore C:\Users\ljl\ljl.keystore -storepass 123456
+
+签名
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my.keystore app-release-unsigned.apk ljl
+```
