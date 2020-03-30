@@ -56,6 +56,10 @@
 8. vue递归树形组件
 
 ```
+cordova create MyApp
+cordova platform add android
+cordova build android
+
 基于Gradle来编译、打包android
 
 cordova build android
@@ -81,5 +85,10 @@ validity  有效期,单位是天数
 keytool -list  -v -keystore C:\Users\ljl\ljl.keystore -storepass 123456
 
 签名
-jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my.keystore app-release-unsigned.apk ljl
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore C:\Users\ljl\ljl.keystore app-release-unsigned.apk ljl
+
+
+vue add cordova
+npm run cordova-prepare
+npm run cordova-build-android
 ```
