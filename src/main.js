@@ -6,6 +6,10 @@ import store from './store';
 import '@/plugins/element-plugin';
 import './scss/base.scss';
 
+import asyncWrap from './utils/asyncWrap';
+
+Vue.prototype.to = asyncWrap;
+
 Vue.config.productionTip = false;
 
 axios.defaults.baseURL = '/api';

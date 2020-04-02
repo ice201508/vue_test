@@ -21,6 +21,7 @@ export default {
   data() {
     return {
       imgs: null,
+      flag: true,
     };
   },
   methods: {
@@ -43,18 +44,46 @@ export default {
       });
     },
     getAjax() {
-      this.$http.get('/get').then(
-        (res) => {
-          this.imgs = [];
-          console.log(res);
+      const _that = this;
+      if (this.flag) {
+        this.imgs = [];
+        this.flag = false;
+        setTimeout(async () => {
+          this.flag = true;
+          // const [err, list] = await _that.$http.get('/getss').catch((err) => {
+          //   console.log('请求失败： ', err);
+          // });
+          // const res1 = await _that.$http.get('/get').catch((err) => {
+          //   console.log(2, err);
+          // });
+          // if (!res1) return;
+          // console.log(3, res1);
+          // res1.data.forEach((item) => {
+          //   _that.imgs.push(item.carouselImg);
+          // });
+          // https://github.com/huruji/blog/issues/61
+          const [err, res] = await _that.to(_that.$http.get('/get11'));
+          const [err1, res1] = await _that.to(_that.$http.get('/get'));
+          console.log(err, res);
+          if (err) return;
           res.data.forEach((item) => {
-            this.imgs.push(item.carouselImg);
+            _that.imgs.push(item.carouselImg);
           });
-        },
-        function(err) {
-          console.log(err);
-        }
-      );
+        }, 200);
+      }
+
+      // this.$http.get('/get').then(
+      //   (res) => {
+      //     this.imgs = [];
+      //     console.log(res);
+      //     res.data.forEach((item) => {
+      //       this.imgs.push(item.carouselImg);
+      //     });
+      //   },
+      //   function(err) {
+      //     console.log(err);
+      //   }
+      // );
     },
     postAjax() {
       this.$http.post('/post').then(

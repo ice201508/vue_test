@@ -29,6 +29,7 @@ export default {
       // 当前月有多少行
       dcurr_month_lines: 0,
       weeksList: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+      // 日历的具体数据
       display_cal: [],
       dcurr_month_lines_array: [],
     };
@@ -40,6 +41,7 @@ export default {
     this.init();
   },
   methods: {
+    curr_line_items(item) {},
     init() {
       // day是星期几 值是0-6  星期日是0
       // date 是多少号， 1-31之间的数据
@@ -48,7 +50,7 @@ export default {
       // this.dcurr_year = this.d_now.get('year');
       // this.dcurr_month = this.d_now.get('month');
       // this.dcurr_day = this.d_now.get('date');
-      if (this.searchTime) {
+      if (!this.searchTime) {
         this.dcurr_year = moment(new Date(this.searchTime)).get('year'); // 年份
         this.dcurr_month = moment(new Date(this.searchTime)).get('month'); // 月份
         this.dcurr_day = moment(new Date(this.searchTime)).get('date');
@@ -105,6 +107,15 @@ export default {
         this.dcurr_month_lines_array.push(i);
       }
       console.log(this.dcurr_month_lines_array);
+
+      this.display_cal = [];
+      this.dcurr_month_lines_array.forEach((item) => {
+        this.display_cal.push({
+          line: item,
+          cal: 1,
+        });
+      });
+      console.log(this.display_cal);
     },
   },
 };

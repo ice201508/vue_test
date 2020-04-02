@@ -17,5 +17,7 @@ module.exports = {
     'func-names': 0,
     'comma-dangle': 0,
     'linebreak-style': 0,
+    'no-underscore-dangle': 0,
+    'arrow-body-style': 0,
   },
 };
