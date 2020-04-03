@@ -23,5 +23,6 @@ module.exports = {
     'one-var': 0,
     'one-var-declaration-per-line': 0,
     'prefer-const': 0,
+    'prefer-promise-reject-errors': 0,
   },
 };

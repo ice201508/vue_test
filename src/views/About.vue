@@ -6,7 +6,7 @@
       <el-button @click="showmsg" type="primary">主要按钮</el-button>
       <el-button @click="getAjax" type="success">get请求</el-button>
       <el-button @click="postAjax" type="info">post请求</el-button>
-      <el-button type="warning">警告按钮</el-button>
+      <el-button @click="finallyAsync($event, '张三')" type="warning">最终优化请求</el-button>
       <el-button type="danger">危险按钮</el-button>
     </el-row>
     <hr />
@@ -72,7 +72,7 @@ export default {
           // res.data.forEach((item) => {
           //   _that.imgs.push(item.carouselImg);
           // });
-        }, 200);
+        }, 1000);
       }
 
       // this.$http.get('/get').then(
@@ -88,19 +88,38 @@ export default {
       //   }
       // );
     },
-    postAjax() {
-      this.$http.post('/post').then(
-        (res) => {
-          this.imgs = [];
-          console.log(res);
-          res.data.forEach((item) => {
-            this.imgs.push(item.carouselImg);
-          });
-        },
-        function(err) {
-          console.log(err);
-        }
-      );
+    async postAjax() {
+      try {
+        // 错误捕获的流程， 如果自己在promise后面 手动catch了错误，那么就不会传递到最后面的catch里面去，
+        const res1 = await this.$http.get('/get1').catch((err) => {
+          Promise.reject('get请求失败');
+        });
+        const res2 = await this.$http.post('/post2').catch((err) => {
+          Promise.reject('post请求失败');
+        });
+        const res3 = await this.$http.post('/post');
+        console.log(res1, res2, res3);
+        // try...catch的作用，如果手动捕获一个函数的错误，那么这个函数如果保存，不会影响后面程序的执行，只有catch了以后才能保证程序的正常运行
+      } catch (err) {
+        console.log(1111, err);
+      }
+
+      // let res = await this.$http.post('/post11').catch((err) => {
+      //   console.error(11, err);
+      // });
+      // console.log(res);
+      // this.imgs = [];
+      // res.data.forEach((item) => {
+      //   this.imgs.push(item.carouselImg);
+      // });
+    },
+
+    async finallyAsync(e, param) {
+      console.log(1, e, param);
+      const [err1, res1] = await this.to(this.$http.get('/get1'), { msg: 'get请求失败' });
+      const [err2, res2] = await this.to(this.$http.post('/post1'), { msg: 'post请求失败' });
+      console.log(err1, err2);
+      console.log(res1, res2);
     },
   },
 };
