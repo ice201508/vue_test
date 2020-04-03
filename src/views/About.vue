@@ -61,14 +61,17 @@ export default {
           // res1.data.forEach((item) => {
           //   _that.imgs.push(item.carouselImg);
           // });
+          let err, res1, res;
           // https://github.com/huruji/blog/issues/61
-          const [err, res] = await _that.to(_that.$http.get('/get11'));
-          const [err1, res1] = await _that.to(_that.$http.get('/get'));
-          console.log(err, res);
-          if (err) return;
-          res.data.forEach((item) => {
-            _that.imgs.push(item.carouselImg);
-          });
+          [err, res] = await _that.to(_that.$http.get('/get'));
+          if (err) return console.error(1, err);
+          [err, res1] = await _that.to(_that.$http.post('/post'));
+          if (err) return console.error(2, err);
+          console.log(123, res, res1);
+          // if (err) return;
+          // res.data.forEach((item) => {
+          //   _that.imgs.push(item.carouselImg);
+          // });
         }, 200);
       }
 

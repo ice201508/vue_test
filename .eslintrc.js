@@ -19,5 +19,9 @@ module.exports = {
     'linebreak-style': 0,
     'no-underscore-dangle': 0,
     'arrow-body-style': 0,
+    'consistent-return': 0,
+    'one-var': 0,
+    'one-var-declaration-per-line': 0,
+    'prefer-const': 0,
   },
 };
