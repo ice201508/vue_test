@@ -9,8 +9,10 @@
 // }
 
 // 最终版完善的异步函数
+// https://www.jdon.com/idea/nodejs/error-first-callbacks.html
+// 回调模式，回调函数的第一个参数保留给error对象
 export default function(promise, errProps = {}, errFirst = true) {
-  console.log(1, errProps, typeof promise, promise instanceof Promise);
+  console.log(1, typeof promise, promise instanceof Promise);
   return promise
     .then((data) => {
       return errFirst ? [null, data] : [data, null];

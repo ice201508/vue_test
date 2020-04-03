@@ -116,7 +116,7 @@ export default {
 
     async finallyAsync(e, param) {
       console.log(1, e, param);
-      const [err1, res1] = await this.to(this.$http.get('/get1'), { msg: 'get请求失败' });
+      const [err1, res1] = await this.to(this.$http.get('/get1'));
       const [err2, res2] = await this.to(this.$http.post('/post1'), { msg: 'post请求失败' });
       console.log(err1, err2);
       console.log(res1, res2);
