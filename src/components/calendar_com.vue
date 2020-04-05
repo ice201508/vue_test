@@ -5,7 +5,20 @@
         <li v-for="(item, index) in weeksList" :key="index">{{ item }}</li>
       </ul>
     </div>
-    <div class="cal-date">2</div>
+    <div class="cal-date">
+      <ul class="cd-ul-wrap">
+        <li v-for="item in dcurr_month_lines_array_com" :key="item.line">
+          <div
+            v-for="childItem in item.cal"
+            :key="childItem.date"
+            class="cuw-item"
+            :class="childItem.class"
+          >
+            {{ childItem.date }}
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -41,7 +54,6 @@ export default {
     this.init();
   },
   methods: {
-    curr_line_items(item) {},
     init() {
       // day是星期几 值是0-6  星期日是0
       // date 是多少号， 1-31之间的数据
@@ -50,7 +62,7 @@ export default {
       // this.dcurr_year = this.d_now.get('year');
       // this.dcurr_month = this.d_now.get('month');
       // this.dcurr_day = this.d_now.get('date');
-      if (!this.searchTime) {
+      if (this.searchTime) {
         this.dcurr_year = moment(new Date(this.searchTime)).get('year'); // 年份
         this.dcurr_month = moment(new Date(this.searchTime)).get('month'); // 月份
         this.dcurr_day = moment(new Date(this.searchTime)).get('date');
@@ -108,14 +120,81 @@ export default {
       }
       console.log(this.dcurr_month_lines_array);
 
-      this.display_cal = [];
+      // this.display_cal = [];
+      // this.dcurr_month_lines_array.forEach((item) => {
+      //   this.display_cal.push({
+      //     line: item,
+      //     cal: this.current_lines(item),
+      //   });
+      // });
+      // console.log(this.display_cal);
+    },
+
+    prev_line_items(items) {
+      // if (this.dfirst_day === 3) {
+      //   for (let i = 2; i >= 1; i--) {
+      //     // items.push({ class: 'prev', date: i, line: 1 })
+      //     items.push(this.dprev_month_days - i + 1);
+      //   }
+      // } else if(this.dfirst_day === 5){
+
+      // }
+      if (this.dfirst_day === 0) {
+        for (let i = 1; i <= 6; i++) {
+          items.unshift({ class: 'prev', date: this.dprev_month_days - i + 1, line: 1 });
+          // items.unshift(this.dprev_month_days - i + 1);
+        }
+      } else {
+        for (let i = 1; i < this.dfirst_day; i++) {
+          items.unshift({ class: 'prev', date: this.dprev_month_days - i + 1, line: 1 });
+          // items.unshift(this.dprev_month_days - i + 1);
+        }
+      }
+
+      return items;
+    },
+
+    after_line_items(items) {
+      // if (this.dlast_day === 4) {
+      //   for (let i = 1; i <= 3; i++) {
+      //     items.push(i);
+      //   }
+      // }
+      if (this.dlast_day === 0) return items;
+      for (let i = 1; i <= 7 - this.dlast_day; i++) {
+        items.push({ class: 'after', date: i, line: this.dcurr_month_lines });
+        // items.push(i);
+      }
+      return items;
+    },
+
+    current_lines(line) {
+      let itemList = [];
+      this.prev_line_items(itemList);
+
+      for (let i = 1; i <= this.dcurr_month_days; i++) {
+        itemList.push({ class: 'curr', date: i, line: line });
+        // itemList.push(i);
+      }
+
+      this.after_line_items(itemList);
+      console.log(1111, itemList);
+
+      itemList = itemList.slice(7 * (line - 1), 7 * line);
+      return itemList;
+    },
+  },
+  computed: {
+    dcurr_month_lines_array_com: function () {
+      let display_cal = [];
       this.dcurr_month_lines_array.forEach((item) => {
-        this.display_cal.push({
+        display_cal.push({
           line: item,
-          cal: 1,
+          cal: this.current_lines(item),
         });
       });
-      console.log(this.display_cal);
+      console.log(11, display_cal);
+      return display_cal;
     },
   },
 };
@@ -142,6 +221,7 @@ export default {
     padding: 0;
     list-style: none;
     display: flex;
+    height: 50px;
     li {
       flex: 1;
       font-size: 18px;
@@ -149,6 +229,34 @@ export default {
       text-align: center;
       border: 1px solid #ccc;
       padding: 8px 0;
+    }
+  }
+}
+
+.cd-ul-wrap {
+  box-sizing: border-box;
+  li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .cuw-item {
+      box-sizing: border-box;
+      flex: 1;
+      border: 1px solid #ccc;
+      padding: 15px;
+      text-align: center;
+      &.prev,
+      &,
+      after {
+        color: #ccc;
+      }
+      &.curr {
+        color: #000;
+      }
+      &:hover {
+        // border-color: rgb(226, 137, 137);
+        border: 1px solid rgb(240, 25, 25);
+      }
     }
   }
 }

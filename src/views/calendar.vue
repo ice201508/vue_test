@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h3>我们下面的组件就是我们 自己定义的日历组件</h3>
-    <calendar v-if="!large" :search-time="'2020-5-19'"></calendar>
+    <calendar v-if="!large" :search-time="'2020-4-5'"></calendar>
   </div>
 </template>
 

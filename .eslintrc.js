@@ -24,5 +24,10 @@ module.exports = {
     'one-var-declaration-per-line': 0,
     'prefer-const': 0,
     'prefer-promise-reject-errors': 0,
+    eqeqeq: 0,
+    'object-curly-newline': 0,
+    'object-shorthand': 0,
+    camelcase: 0,
+    'object-shorthand': 0,
   },
 };
