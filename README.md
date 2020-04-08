@@ -44,6 +44,13 @@
    save preset as
    ```
 
+```
+https://blog.csdn.net/qq_35430000/article/details/96481708
+vue里面的 vue.use  和 prototype的区别
+```
+
+
+
 ### 项目概述
 
 1. 给学校做的一个系统，可供学校的各种人员登录， 例如校长，年级主任，班主任，任课老师，学生登录； 各个人员的角色名称可以自定义配置， 校长拥有最大权限；根据职位不同，权限依次递减。有页面  级别的权限也有按钮级别的权限
@@ -92,3 +99,4 @@ vue add cordova
 npm run cordova-prepare
 npm run cordova-build-android
 ```
+

@@ -1,5 +1,8 @@
 <template>
   <div class="cal-wrap">
+    <div>
+      <button @click="prevMonth">上一月</button>
+    </div>
     <div class="cal-week">
       <ul>
         <li v-for="(item, index) in weeksList" :key="index">{{ item }}</li>
@@ -7,7 +10,8 @@
     </div>
     <div class="cal-date">
       <ul class="cd-ul-wrap">
-        <li v-for="item in dcurr_month_lines_array_com" :key="item.line">
+        <!-- <li v-for="item in dcurr_month_lines_array_com" :key="item.line"> -->
+        <li v-for="item in display_cal" :key="item.line">
           <div
             v-for="childItem in item.cal"
             :key="childItem.date"
@@ -23,6 +27,7 @@
 </template>
 
 <script>
+// https://github.com/xiangnideye/vue-date-picker
 import moment from 'moment';
 
 export default {
@@ -51,27 +56,25 @@ export default {
     searchTime: String,
   },
   created() {
+    this.getCurrentDate(this.searchTime);
     this.init();
   },
   methods: {
-    init() {
+    getCurrentDate(param) {
       // day是星期几 值是0-6  星期日是0
       // date 是多少号， 1-31之间的数据
       this.d_now = moment();
-      console.log(this.searchTime);
-      // this.dcurr_year = this.d_now.get('year');
-      // this.dcurr_month = this.d_now.get('month');
-      // this.dcurr_day = this.d_now.get('date');
-      if (this.searchTime) {
-        this.dcurr_year = moment(new Date(this.searchTime)).get('year'); // 年份
-        this.dcurr_month = moment(new Date(this.searchTime)).get('month'); // 月份
-        this.dcurr_day = moment(new Date(this.searchTime)).get('date');
+      if (param) {
+        this.dcurr_year = moment(new Date(param)).get('year'); // 年份
+        this.dcurr_month = moment(new Date(param)).get('month'); // 月份
+        this.dcurr_day = moment(new Date(param)).get('date');
       } else {
         this.dcurr_year = this.d_now.get('year');
         this.dcurr_month = this.d_now.get('month');
         this.dcurr_day = this.d_now.get('date');
       }
-
+    },
+    init() {
       console.log(this.dcurr_year, this.dcurr_month, this.dcurr_day);
       this.dfirst_day = moment()
         .set({
@@ -119,6 +122,16 @@ export default {
         this.dcurr_month_lines_array.push(i);
       }
       console.log(this.dcurr_month_lines_array);
+
+      this.display_cal = [];
+      this.dcurr_month_lines_array.forEach((item) => {
+        this.display_cal.push({
+          line: item,
+          cal: this.current_lines(item),
+        });
+      });
+      console.log(11, this.display_cal);
+      return this.display_cal;
 
       // this.display_cal = [];
       // this.dcurr_month_lines_array.forEach((item) => {
@@ -183,6 +196,11 @@ export default {
       itemList = itemList.slice(7 * (line - 1), 7 * line);
       return itemList;
     },
+
+    prevMonth() {
+      this.getCurrentDate(this.searchTime);
+      this.init();
+    },
   },
   computed: {
     dcurr_month_lines_array_com: function () {
@@ -242,20 +260,21 @@ export default {
     .cuw-item {
       box-sizing: border-box;
       flex: 1;
+      height: 100px;
+      padding: 10px;
       border: 1px solid #ccc;
-      padding: 15px;
-      text-align: center;
       &.prev,
-      &,
-      after {
+      &.after {
         color: #ccc;
+        background-color: #e8e8e8;
       }
       &.curr {
         color: #000;
       }
       &:hover {
-        // border-color: rgb(226, 137, 137);
-        border: 1px solid rgb(240, 25, 25);
+        background-color: rgb(90, 89, 89);
+        color: #fff;
+        font-size: 20px;
       }
     }
   }
