@@ -29,5 +29,8 @@ module.exports = {
     'object-shorthand': 0,
     camelcase: 0,
     'object-shorthand': 0,
+    'prefer-template': 0,
+    'operator-linebreak': 0,
+    'array-callback-return': 0,
   },
 };

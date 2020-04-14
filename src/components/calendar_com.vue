@@ -1,8 +1,5 @@
 <template>
   <div class="cal-wrap">
-    <div>
-      <button @click="prevMonth">上一月</button>
-    </div>
     <div class="cal-week">
       <ul>
         <li v-for="(item, index) in weeksList" :key="index">{{ item }}</li>
@@ -16,7 +13,7 @@
             v-for="childItem in item.cal"
             :key="childItem.date"
             class="cuw-item"
-            :class="childItem.class"
+            :class="[childItem.class, hasEvent]"
           >
             {{ childItem.date }}
           </div>
@@ -54,9 +51,13 @@ export default {
   },
   props: {
     searchTime: String,
+    event: {
+      type: Array,
+      value: [],
+    },
   },
   created() {
-    this.getCurrentDate(this.searchTime);
+    // this.getCurrentDate(this.searchTime);
     this.init();
   },
   methods: {
@@ -75,6 +76,7 @@ export default {
       }
     },
     init() {
+      this.getCurrentDate(this.searchTime);
       console.log(this.dcurr_year, this.dcurr_month, this.dcurr_day);
       this.dfirst_day = moment()
         .set({
@@ -91,7 +93,6 @@ export default {
           date: 0,
         })
         .get('day');
-      console.log(this.dfirst_day, this.dlast_day);
 
       // 找每个月多少天，就是这个月日期写零
       this.dprev_month_days = moment()
@@ -108,7 +109,6 @@ export default {
           date: 0,
         })
         .get('date');
-      console.log(this.dprev_month_days, this.dcurr_month_days);
 
       // 总行数
       if (this.dfirst_day === 0) {
@@ -116,12 +116,12 @@ export default {
       } else {
         this.dcurr_month_lines = Math.ceil((this.dcurr_month_days + this.dfirst_day - 1) / 7);
       }
-      console.log(this.dcurr_month_lines);
+
+      this.dcurr_month_lines_array = [];
 
       for (let i = 1; i <= this.dcurr_month_lines; i++) {
         this.dcurr_month_lines_array.push(i);
       }
-      console.log(this.dcurr_month_lines_array);
 
       this.display_cal = [];
       this.dcurr_month_lines_array.forEach((item) => {
@@ -130,17 +130,7 @@ export default {
           cal: this.current_lines(item),
         });
       });
-      console.log(11, this.display_cal);
       return this.display_cal;
-
-      // this.display_cal = [];
-      // this.dcurr_month_lines_array.forEach((item) => {
-      //   this.display_cal.push({
-      //     line: item,
-      //     cal: this.current_lines(item),
-      //   });
-      // });
-      // console.log(this.display_cal);
     },
 
     prev_line_items(items) {
@@ -186,33 +176,28 @@ export default {
       this.prev_line_items(itemList);
 
       for (let i = 1; i <= this.dcurr_month_days; i++) {
-        itemList.push({ class: 'curr', date: i, line: line });
+        itemList.push({ class: 'curr', date: i, line: line, event: this.event });
         // itemList.push(i);
       }
 
       this.after_line_items(itemList);
-      console.log(1111, itemList);
 
       itemList = itemList.slice(7 * (line - 1), 7 * line);
       return itemList;
     },
-
-    prevMonth() {
-      this.getCurrentDate(this.searchTime);
-      this.init();
-    },
   },
   computed: {
-    dcurr_month_lines_array_com: function () {
-      let display_cal = [];
-      this.dcurr_month_lines_array.forEach((item) => {
-        display_cal.push({
-          line: item,
-          cal: this.current_lines(item),
-        });
-      });
-      console.log(11, display_cal);
-      return display_cal;
+    hasEvent: function(param) {
+      if (+new Date(this.dcurr_year + this.dcurr_month + param.date) === +new Date(param.date)) {
+        console.log(2222, param);
+        return 'has-event';
+      }
+      return '';
+    },
+  },
+  watch: {
+    searchTime(newV, oldV) {
+      this.init();
     },
   },
 };
