@@ -24,6 +24,11 @@ const routes = [
     name: 'Calendar',
     component: () => import('../views/calendar.vue'),
   },
+  {
+    path: '/vuex',
+    name: 'vuex',
+    component: () => import('../views/vuex.vue'),
+  },
 ];
 
 const router = new VueRouter({

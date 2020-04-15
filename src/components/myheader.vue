@@ -10,6 +10,9 @@
       <li>
         <router-link to="/calendar">日历</router-link>
       </li>
+      <li>
+        <router-link to="/vuex">vuex</router-link>
+      </li>
     </ul>
   </div>
 </template>
