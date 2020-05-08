@@ -13,6 +13,12 @@
       <li>
         <router-link to="/vuex">vuex</router-link>
       </li>
+      <li>
+        <router-link to="/yewu/table">table</router-link>
+      </li>
+      <li>
+        <router-link to="/yewu/preview">preview</router-link>
+      </li>
     </ul>
   </div>
 </template>
