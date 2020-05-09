@@ -7,5 +7,8 @@
 <script>
 export default {
   name: 'Home',
+  created() {
+    console.log(123);
+  }
 };
 </script>
