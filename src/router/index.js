@@ -2,6 +2,8 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import Layout from '../components/layout.vue';
+import ListTable from '../views/list/list.table.vue';
+import ListPreview from '../views/list/list.preview.vue';
 
 Vue.use(VueRouter);
 
@@ -38,10 +40,12 @@ const routes = [
     children: [
       {
         path: 'table',
+        // component: ListTable
         component: () => import('../views/list/list.table.vue')
       },
       {
         path: 'preview',
+        // component: ListPreview
         component: () => import('../views/list/list.preview.vue')
       }
     ]
@@ -49,7 +53,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
-  mode: 'hash', // history
+  mode: 'history', // history  history
   routes
 });
 

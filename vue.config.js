@@ -12,15 +12,15 @@ module.exports = {
         ws: true,
         changeOrigin: true, // 是否开启跨域
         pathRewrite: {
-          '^/api': '',
-        },
-      },
-    },
+          '^/api': ''
+        }
+      }
+    }
   },
 
-  publicPath: '',
+  publicPath: '/',
 
   pluginOptions: {
-    cordovaPath: 'src-cordova',
-  },
+    cordovaPath: 'src-cordova'
+  }
 };
