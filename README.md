@@ -1,4 +1,4 @@
-# bug1
+### bug1
 
 ```
 监听 chartData 的值，当它由空转变时就会触发，这时候就能取到了，拿到值后要做的处理方法也需要在 watch 里面执行。
@@ -100,3 +100,17 @@ npm run cordova-prepare
 npm run cordova-build-android
 ```
 
+
+
+### 前端优化
+
+##### TTFB
+
+1. 网页前端性能的朋友，在优化网页性能的时候都会遇到网站加载 **Waiting（TTFB）时间过长**的问题
+2. TTFB 是 Time to First Byte 的缩写，指的是浏览器开始收到服务器响应数据的时间（后台处理时间+重定向时间），是反映服务端响应速度的重要指标.就像你问朋友了一个问题，你的朋友思考了一会儿才给你答案，你朋友思考的时间就相当于 TTFB。你朋友思考的时间越短，就说明你朋友越聪明或者对你的问题越熟悉。对服务器来说，TTFB 时间越短，就说明服务器响应越快。
+3. 如果想知道你的[服务器优化](https://www.wpzhiku.com/tag/%E4%BC%98%E5%8C%96/)可以到什么程度，大家可以上传一些静态的 HTML 页面到服务器
+   1. 可以使用一个 [CDN](https://www.wpzhiku.com/wp-cdn-rewrite-qiniu-colud/)，把页面同步到离用户比较近的 CDN 节点上，也是一个不错的解决办法
+   2. 如果是 Cookie 的原因，可以通过修改应用程序，删除一些不必要的 Cookie，或者精简 Cookie 内容，缩短 Cookie 的有效期等，都是解决办法。
+   3. 本站使用的是 [Cachify 插件 Memcached 缓存方式](https://www.wpzhiku.com/cachify/)，直接把用户请求过的页面，缓存到了内存中，网站加载 Waiting (TTFB) 时间达到了 50 ms 左右
+   4. 用更多、更好的服务器，还可读减少对数据的查询——即缓存数据结果
+4. 使用http_load压力测试， `./http_load -rate 5 -seconds 10 urls`，在当前目录下再新建一个url文件，里面放我们的url地址，或者ip地址

@@ -23,4 +23,29 @@ module.exports = {
   pluginOptions: {
     cordovaPath: 'src-cordova'
   }
+
+  // chainWebpack: (config) => {
+  //   config.module
+  //     .rule('images')
+  //     .use('url-loader')
+  //     .tap((options) => {
+  //       options.limit = 7000;
+  //       options.name = 'img.[ext]';
+  //       return options;
+  //     });
+  //   // .loader('url-loader')
+  //   // .tap((options) => Object.assign({}, options, { limit: 1024, name: 'img/[name].[ext]' }));
+  // },
+  // css: {
+  //   extract: {
+  //     filename: '/css/[name].css',
+  //     chunkFilename: '/css/[name].css',
+  //   },
+  // },
+  // configureWebpack: {
+  //   output: {
+  //     filename: 'js/[name].js',
+  //     chunkFilename: 'js/[name].js',
+  //   },
+  // },
 };
