@@ -18,8 +18,8 @@ import myheader from '@/components/myheader.vue';
 export default {
   name: 'Header',
   components: {
-    myheader,
-  },
+    myheader
+  }
 };
 </script>
 

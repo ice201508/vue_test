@@ -13,9 +13,11 @@
             v-for="childItem in item.cal"
             :key="childItem.date"
             class="cuw-item"
-            :class="[childItem.class, hasEvent]"
+            @click="sendCurrent(childItem)"
+            :class="[childItem.class, childItem.event ? 'hasEvent' : '']"
           >
             {{ childItem.date }}
+            <span>{{ childItem.event && childItem.event.name }}</span>
           </div>
         </li>
       </ul>
@@ -46,15 +48,15 @@ export default {
       weeksList: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
       // 日历的具体数据
       display_cal: [],
-      dcurr_month_lines_array: [],
+      dcurr_month_lines_array: []
     };
   },
   props: {
     searchTime: String,
     event: {
       type: Array,
-      value: [],
-    },
+      value: []
+    }
   },
   created() {
     // this.getCurrentDate(this.searchTime);
@@ -77,12 +79,12 @@ export default {
     },
     init() {
       this.getCurrentDate(this.searchTime);
-      console.log(this.dcurr_year, this.dcurr_month, this.dcurr_day);
+      // console.log(this.dcurr_year, this.dcurr_month, this.dcurr_day);
       this.dfirst_day = moment()
         .set({
           year: this.dcurr_year,
           month: this.dcurr_month,
-          date: 1,
+          date: 1
         })
         .get('day');
 
@@ -90,7 +92,7 @@ export default {
         .set({
           year: this.dcurr_year,
           month: this.dcurr_month + 1,
-          date: 0,
+          date: 0
         })
         .get('day');
 
@@ -99,14 +101,14 @@ export default {
         .set({
           year: this.dcurr_year,
           month: this.dcurr_month,
-          date: 0,
+          date: 0
         })
         .get('date');
       this.dcurr_month_days = moment()
         .set({
           year: this.dcurr_year,
           month: this.dcurr_month + 1,
-          date: 0,
+          date: 0
         })
         .get('date');
 
@@ -127,7 +129,7 @@ export default {
       this.dcurr_month_lines_array.forEach((item) => {
         this.display_cal.push({
           line: item,
-          cal: this.current_lines(item),
+          cal: this.current_lines(item)
         });
       });
       return this.display_cal;
@@ -176,30 +178,59 @@ export default {
       this.prev_line_items(itemList);
 
       for (let i = 1; i <= this.dcurr_month_days; i++) {
-        itemList.push({ class: 'curr', date: i, line: line, event: this.event });
-        // itemList.push(i);
+        itemList.push({ class: 'curr', date: i, line: line });
       }
+
+      itemList.forEach((item) => {
+        if (this.event && this.event.length > 0) {
+          this.event.forEach((childItem) => {
+            if (item.date == new Date(childItem.date).getDate()) {
+              item.event = childItem;
+            }
+          });
+        }
+      });
 
       this.after_line_items(itemList);
 
       itemList = itemList.slice(7 * (line - 1), 7 * line);
       return itemList;
     },
+    sendCurrent(argc) {
+      let tmp_date = '';
+      switch (argc.class) {
+        case 'prev':
+          tmp_date = this.dcurr_year + '-' + this.dcurr_month + '-' + argc.date;
+          break;
+        case 'curr':
+          tmp_date = this.dcurr_year + '-' + (this.dcurr_month + 1) + '-' + argc.date;
+          break;
+        case 'after':
+          tmp_date = this.dcurr_year + '-' + (this.dcurr_month + 2) + '-' + argc.date;
+          break;
+        default:
+          break;
+      }
+      this.$emit('sendEvent', tmp_date);
+    }
   },
   computed: {
     hasEvent: function(param) {
+      console.log(333333333333333, param);
       if (+new Date(this.dcurr_year + this.dcurr_month + param.date) === +new Date(param.date)) {
-        console.log(2222, param);
         return 'has-event';
       }
       return '';
-    },
+    }
   },
   watch: {
     searchTime(newV, oldV) {
       this.init();
     },
-  },
+    event(newV, oldV) {
+      this.init();
+    }
+  }
 };
 </script>
 
@@ -207,6 +238,7 @@ export default {
 .cal-wrap {
   display: flex;
   flex-flow: column;
+  min-width: 700px;
   // width: 100%;
   // height: 100%;
 }
@@ -257,9 +289,12 @@ export default {
         color: #000;
       }
       &:hover {
-        background-color: rgb(90, 89, 89);
+        background-color: rgba(90, 89, 89, 0.3);
         color: #fff;
-        font-size: 20px;
+        // font-size: 20px;
+      }
+      &.hasEvent {
+        color: red;
       }
     }
   }

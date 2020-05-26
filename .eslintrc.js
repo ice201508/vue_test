@@ -8,6 +8,8 @@ module.exports = {
     parser: 'babel-eslint'
   },
   rules: {
+    'no-loop-func': 0,
+    'no-param-reassign': 0,
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-unused-vars': 0,
@@ -31,6 +33,7 @@ module.exports = {
     'object-shorthand': 0,
     'prefer-template': 0,
     'operator-linebreak': 0,
-    'array-callback-return': 0
+    'array-callback-return': 0,
+    semi: 2
   }
 };

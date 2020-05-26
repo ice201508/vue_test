@@ -1,7 +1,7 @@
 module.exports = {
   devServer: {
     // open: true,
-    // host: '127.0.0.1',
+    host: '127.0.0.1',
     // post: 9999,
     // https: false,
     // hotOnly: false,
@@ -18,7 +18,7 @@ module.exports = {
     }
   },
 
-  publicPath: '/',
+  // publicPath: '/',
 
   pluginOptions: {
     cordovaPath: 'src-cordova'

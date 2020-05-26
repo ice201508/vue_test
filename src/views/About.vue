@@ -73,7 +73,7 @@ export default {
           // res.data.forEach((item) => {
           //   _that.imgs.push(item.carouselImg);
           // });
-        }, 1000);
+        }, 0);
       }
 
       // this.$http.get('/get').then(

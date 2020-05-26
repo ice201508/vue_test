@@ -5,6 +5,9 @@ function getCurrent(param, year, month, day) {
   let days = param.getDate() + day;
   return years + '-' + months + '-' + days;
 }
+
+// let start = new Date(year, month, 1); // 得到当月第一天
+// let end = new Date(year, month+1, 0);
 // 获取当前时间所在月份的 第一天   例如 4.13 得到的就是 2020-4-1
 function getMonthFirstDate(param) {
   let years = param.getFullYear();
@@ -22,5 +25,5 @@ function getMonthLastDate(param) {
 export default {
   getCurrent,
   getMonthFirstDate,
-  getMonthLastDate,
+  getMonthLastDate
 };

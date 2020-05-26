@@ -114,3 +114,11 @@ npm run cordova-build-android
    3. 本站使用的是 [Cachify 插件 Memcached 缓存方式](https://www.wpzhiku.com/cachify/)，直接把用户请求过的页面，缓存到了内存中，网站加载 Waiting (TTFB) 时间达到了 50 ms 左右
    4. 用更多、更好的服务器，还可读减少对数据的查询——即缓存数据结果
 4. 使用http_load压力测试， `./http_load -rate 5 -seconds 10 urls`，在当前目录下再新建一个url文件，里面放我们的url地址，或者ip地址
+
+
+
+### 日历相关
+
+1. 当前月的 年月日的获取
+2. 当前月有多少行， 由具体到抽象
+3. 当前月的日历 数组对象，有上一月，当前月，下一月的数据组成
