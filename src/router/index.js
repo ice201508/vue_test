@@ -7,6 +7,8 @@ import ListPreview from '../views/list/list.preview.vue';
 
 Vue.use(VueRouter);
 
+const APP_NAME = '武汉黑马';
+
 const routes = [
   {
     path: '/',
@@ -49,12 +51,53 @@ const routes = [
         component: () => import('../views/list/list.preview.vue')
       }
     ]
+  },
+  {
+    path: '/404',
+    component: () => import('../views/Error404.vue'),
+    meta: {
+      title: '页面找不到了'
+    }
+  },
+  {
+    path: '*',
+    redirect: '/404'
   }
 ];
 
+function getTitle(title) {
+  if (title) {
+    return title;
+  }
+  return APP_NAME;
+}
+
 const router = new VueRouter({
   mode: 'history', // history  history
-  routes
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    return {
+      x: 0,
+      y: 0
+    };
+  }
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.meta && to.meta.title) {
+    document.title = getTitle(to.meta.title);
+  } else {
+    document.title = getTitle();
+  }
+  next();
+});
+
+// router.beforeEach((to, from, next) => {
+//   NProgress.start();
+//   next();
+// });
+// router.afterEach((transition) => {
+//   NProgress.done();
+// });
 
 export default router;
