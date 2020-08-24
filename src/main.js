@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import axios from 'axios';
+import VueParticles from 'vue-particles';
+
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -11,6 +13,7 @@ import asyncWrap from './utils/asyncWrap';
 Vue.prototype.to = asyncWrap;
 
 Vue.config.productionTip = false;
+Vue.use(VueParticles);
 
 axios.defaults.baseURL = '/api';
 Vue.prototype.$http = axios;
@@ -35,5 +38,5 @@ axios.interceptors.response.use(
 new Vue({
   router,
   store,
-  render: (h) => h(App),
+  render: (h) => h(App)
 }).$mount('#app');
