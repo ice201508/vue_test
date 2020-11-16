@@ -21,7 +21,7 @@
 
 ### 目前项目准备（动态路由相关）
 
-1. vue 结合 eslint，prettier，eslint-loader 等 11 配置创建 一个项目  
+1. vue 结合 eslint，prettier，eslint-loader 等 11 配置创建 一个项目 1 
 2. 搭建项目权限所需要的基本路由规则和页面的书写
 3. 修改页面整合动态路由`addRouter`，让左侧的菜单栏根据不同的角色动态发生变化
 

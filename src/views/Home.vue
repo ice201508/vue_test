@@ -4,8 +4,8 @@
       color="#dedede"
       :particleOpacity="0.5"
       :particlesNumber="80"
-      shapeType="suare"
-      :particleSize="4"
+      shapeType="circle"
+      :particleSize="2"
       linesColor="#dedede"
       :linesWidth="1"
       :lineLinked="true"
@@ -31,5 +31,6 @@ export default {
 .home {
   background: url('~@/assets/sky.jpg');
   background-size: cover;
+  height: 100%;
 }
 </style>
