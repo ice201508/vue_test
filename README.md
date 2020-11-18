@@ -10,7 +10,7 @@
 `git rm -r --cached .` 加入`git`忽略的文件
 `https://scotch.io/tutorials/vue-authentication-and-route-handling-using-vue-router`
 
-#### VUE DEMO 需要完成的几个节点
+#### VUE DEMO 需 要完成的几个节点
 
 1. 常见的几个框架的 使用 `elementUI ， iview，museui，mintui，vux，vantui`
 2. 抽离目录结构`scss`, 使用变量`$blue`， 函数2`@minin`
