@@ -12,7 +12,7 @@
 
 #### VUE DEMO 需要完成的几个节点
 
-1. 常见的几个框架的使用 `elementUI ， iview，museui，mintui，vux，vantui`
+1. 常见的几个框架的 使用 `elementUI ， iview，museui，mintui，vux，vantui`
 2. 抽离目录结构`scss`, 使用变量`$blue`， 函数2`@minin`
 3. 全局的过滤器注册，指令 注册，(组件也是指令)
 4. 路由模块`router`抽离，`vuex`模块抽离 
